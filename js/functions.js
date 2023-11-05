@@ -18,3 +18,25 @@ const isPalindrome = function(str){
   return normalizedStr === reversedStr;
 };
 console.log(isPalindrome('Лёша на полке клопа нашёл '));
+
+function isMeetingTime(startTime, endTime, meetingStart, meeting) {
+  const workingDayStart = parseTimeToMinutes(startTime);
+  const workingDayEnd = parseTimeToMinutes(endTime);
+
+  const meetingStartTime = parseTimeToMinutes(meetingStart);
+
+  const meetingEndTime = meetingStartTime + meeting;
+
+  if (meetingStartTime >= workingDayStart && meetingEndTime <= workingDayEnd) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function parseTimeToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
+
