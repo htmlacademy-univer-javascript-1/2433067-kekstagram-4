@@ -1,7 +1,7 @@
-const bigPicture = document.querySelector('.big-picture');
-const pictureComments = bigPicture.querySelector('.social__comments');
+const bigPict = document.querySelector('.big-picture');
+const pictureComments = bigPict.querySelector('.social__comments');
 const commentChild = pictureComments.children[0];
-const closeButton = bigPicture.querySelector('#picture-cancel');
+const closeButton = bigPict.querySelector('#picture-cancel');
 
 const getCommentItem = (comment) => {
   const newComment = commentChild.cloneNode(true);
@@ -17,27 +17,27 @@ const getCommentItem = (comment) => {
 
 const addPictureEvent = (picture, data) => {
   picture.addEventListener('click', () => {
-    bigPicture.classList.remove('hidden');
+    bigPict.classList.remove('hidden');
 
-    bigPicture.querySelector('.big-picture__img').querySelector('img').src = data.url;
-    bigPicture.querySelector('.likes-count').textContent = data.likes;
-    bigPicture.querySelector('.comments-count').textContent = data.comments.length;
-    bigPicture.querySelector('.social__caption').textContent = data.description;
+    bigPict.querySelector('.big-picture__img').querySelector('img').src = data.url;
+    bigPict.querySelector('.likes-count').textContent = data.likes;
+    bigPict.querySelector('.comments-count').textContent = data.comments.length;
+    bigPict.querySelector('.social__caption').textContent = data.description;
 
     pictureComments.innerHTML = '';
     data.comments.forEach((comment) => {
       pictureComments.appendChild(getCommentItem(comment));
     });
 
-    bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    bigPicture.querySelector('.comments-loader').classList.add('hidden');
+    bigPict.querySelector('.social__comment-count').classList.add('hidden');
+    bigPict.querySelector('.comments-loader').classList.add('hidden');
     document.querySelector('body').classList.add('modal-open');
   });
 };
 
 const onEscapeKeyDown = (evt) => {
   if(evt.key === 'Escape'){
-    bigPicture.classList.add('hidden');
+    bigPict.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
   }
 
@@ -45,7 +45,7 @@ const onEscapeKeyDown = (evt) => {
 };
 
 closeButton.addEventListener('click', () => {
-  bigPicture.classList.add('hidden');
+  bigPict.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 
   document.removeEventListener('keydown', onEscapeKeyDown);
