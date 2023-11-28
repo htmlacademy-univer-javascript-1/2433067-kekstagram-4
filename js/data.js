@@ -1,12 +1,9 @@
-import {getRandomArrayElement} from './util.js';
-const AVATARS = [
-  'img/avatar-1.svg',
-  'img/avatar-2.svg',
-  'img/avatar-3.svg',
-  'img/avatar-4.svg',
-  'img/avatar-5.svg',
-  'img/avatar-6.svg',
-];
+import {getRandInt, getId, generateArray} from './util.js';
+
+const COUNT_PHOTO = 25;
+const COUNT_COMMENT = 10;
+const photosId = generateArray(25,25);
+const usersId = generateArray(25,25);
 
 const MESSAGE = [
   'Всё отлично!',
@@ -35,38 +32,21 @@ const DESCRIPTION = [
   'Любимые дети',
   'Наши питомцы'
 ];
-const OBJECT_COUNT = 25;
-function createIdGenerator () {
-  let lastGeneratedId = 0;
-
-  return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
-  };
-}
-
-const generatePhotoId = createIdGenerator();
-const generateCommentId = createIdGenerator();
-const generateUrlId = createIdGenerator();
-
-const createMessege = () => getRandomInteger(0, 1)
-  ? getRandomArrayElement(MESSAGE)
-  : '${getRandomArrayElement(MESSAGE)} ${getRandomArrayElement(MESSAGE)}';
-
-const createComment = () => ({
-  id: generateCommentId(),
-  avatar: 'img/avatar-/${getRandomInteger(1, 6)}.svg',
-  message: createMessege(),
-  name: getRandomArrayElement(NAMES)
+const CreateComment = () => ({
+  id: getId(usersId),
+  avatar: `img/avatar-${ getRandInt(1, 6) }.svg`,
+  message: MESSAGES[getRandInt(0, 1)],
+  name: NAMES[getRandInt(0,NAMES.length-1)]
 });
 
-const createDescriptionPhoto = () => ({
-  id: generatePhotoId(),
-  url: 'photos/${generateUrlId()}.jpg' ,
-  description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
+const CreatePhoto = () => ({
+  id: photosId[getRandInt(1,COUNT_PHOTO-1)],
+  url: `photos/${getRandInt(1,COUNT_PHOTO-1)}.jpg`,
+  description: DESCRIPTIONS[getRandInt(0, DESCRIPTIONS.length-1)],
+  likes:getRandInt(15, 200),
+  comments: Array.from({length: getRandInt(1, COUNT_COMMENT) }, CreateComment)
 });
 
-export {createDescriptionPhoto};
+const CreatedPhotos = () => Array.from({length: COUNT_PHOTO}, CreatePhoto);
 
+export {CreatedPhotos};
