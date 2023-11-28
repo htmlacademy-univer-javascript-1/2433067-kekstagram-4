@@ -1,5 +1,4 @@
 import {createDescriptionPhoto} from './data.js';
-
 const photoTemplate = document.querySelector('#picture').textContent.querySelector('.picture');
 const photoList = document.querySelector('pictures');
 const photoListFragment = document.createDocumentFragment();
