@@ -1,5 +1,6 @@
+import {CreatedPhotos} from './data.js';
+import { renderPictures } from './pictures.js';
 
-import {createDescriptionPhoto} from './data.js';
-const descriptionPhoto = Array.from({length: OBJECT_COUNT}, createDescriptionPhoto);
-descriptionPhoto();
+const picturesArray = CreatedPhotos();
+renderPictures(picturesArray);
 
