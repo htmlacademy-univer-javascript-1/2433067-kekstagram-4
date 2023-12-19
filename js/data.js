@@ -35,14 +35,14 @@ const DESCRIPTION = [
 const CreateComment = () => ({
   id: getId(usersId),
   avatar: `img/avatar-${ getRandInt(1, 6) }.svg`,
-  message: MESSAGES[getRandInt(0, 1)],
+  message: MESSAGE[getRandInt(0, 1)],
   name: NAMES[getRandInt(0,NAMES.length-1)]
 });
 
 const CreatePhoto = () => ({
   id: photosId[getRandInt(1,COUNT_PHOTO-1)],
   url: `photos/${getRandInt(1,COUNT_PHOTO-1)}.jpg`,
-  description: DESCRIPTIONS[getRandInt(0, DESCRIPTIONS.length-1)],
+  description: DESCRIPTION[getRandInt(0, DESCRIPTION.length-1)],
   likes:getRandInt(15, 200),
   comments: Array.from({length: getRandInt(1, COUNT_COMMENT) }, CreateComment)
 });
