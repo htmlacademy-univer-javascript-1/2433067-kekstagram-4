@@ -15,5 +15,6 @@ function getId (usersId) {
   return temp;
 }
 
+const pressEscape = (evt) => evt.key === 'Escape';
 
-export {getRandInt,generateArray,getId}; 
+export {getRandInt, generateArray, getId, pressEscape};
