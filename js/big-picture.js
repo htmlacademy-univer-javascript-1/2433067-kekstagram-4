@@ -1,7 +1,6 @@
-import {setComments} from './comment.js';
+import {setComments, bigPicture} from './comment.js';
 import {pressEscape} from './util.js';
 
-const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('#picture-cancel');
 
 const clearBigPictureMenu = () => {

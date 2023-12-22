@@ -1,11 +1,13 @@
-import { uploadHashtagInput, clearHashtagsField } from './hashtag.js';
-import { pressEscape } from './util.js';
-import { setScale } from './scale.js';
-import { setEffects } from './effect.js';
+import {uploadHashtagInput, clearHashtagsField, checkFormValidation, form} from './hashtag.js';
+import {pressEscape} from './util.js';
+import {setScale, uploadingOverlay} from './scale.js';
+import {setEffects} from './effect.js';
+import {setData} from './api.js';
+import {addPostMessages, showSuccessMessage, closeMessage, showErrorMessage} from './post-message.js';
+import { uploadUserPicture} from './user-picture.js';
 
-const uploadingControl = document.querySelector('#upload-file');
-const uploadingOverlay = document.querySelector('.img-upload__overlay');
-const uploadingClose = document.querySelector('#upload-cancel');
+const uploadingControl = form.querySelector('#upload-file');
+const uploadingClose = form.querySelector('#upload-cancel');
 
 const uploadingComments = uploadingOverlay.querySelector('.text__description');
 const uploadingButton = uploadingOverlay.querySelector('#upload-submit');
@@ -18,6 +20,8 @@ const clearForm = () => {
   clearHashtagsField();
   uploadingComments.value = '';
 
+  closeMessage();
+
   uploadingButton.disabled = false;
 };
 
@@ -29,14 +33,18 @@ const onEscapeKeyDown = (evt) => {
   }
 };
 
-uploadingClose.addEventListener('click', () => {
+const closeForm = () => {
   clearForm();
 
   document.removeEventListener('keydown', onEscapeKeyDown);
-});
+};
+
+uploadingClose.addEventListener('click', closeForm);
 
 const onUploadClick = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
+
+  uploadUserPicture(uploadingControl.files[0]);
 
   uploadingOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
@@ -49,6 +57,17 @@ const onUploadClick = () => {
 
 const uploadForm = () => {
   uploadingControl.addEventListener('change', onUploadClick);
+  addPostMessages();
 };
 
-export{uploadForm};
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  if(checkFormValidation()) {
+    setData(showSuccessMessage, showErrorMessage, 'POST', new FormData(form));
+  }
+};
+
+form.addEventListener('submit', onFormSubmit);
+
+export{uploadForm, closeForm, onEscapeKeyDown};
