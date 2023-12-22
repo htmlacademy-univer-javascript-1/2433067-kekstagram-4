@@ -17,4 +17,21 @@ function getId (usersId) {
 
 const pressEscape = (evt) => evt.key === 'Escape';
 
-export {getRandInt, generateArray, getId, pressEscape};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+const throttle = (array) => {
+  for(let firstIndex = array.length - 1; firstIndex > 0; firstIndex--) {
+    const randomIndex = Math.floor(Math.random() * (firstIndex + 1));
+    [array[firstIndex], array[randomIndex]] = [array[randomIndex], array[firstIndex]];
+  }
+
+  return array;
+};
+export {getRandInt, generateArray, getId, pressEscape, debounce, throttle};

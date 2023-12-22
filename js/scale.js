@@ -39,5 +39,4 @@ const setScale = () => {
 
 scale.addEventListener('click', onScaleButtonClick);
 
-export{setScale};
-
+export{setScale, uploadingOverlay};

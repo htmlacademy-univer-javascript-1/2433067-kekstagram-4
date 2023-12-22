@@ -1,3 +1,8 @@
+const MIN_PLURAL_DIGIT = 5;
+const MIN_DECIMAL_NUMBER = 10;
+const MAX_DECIMAL_NUMBER = 19;
+const MIN_HUNDREDTH_NUMBER = 100;
+
 const MAX_NEW_COMMENTS_COUNT = 5;
 
 const bigPicture = document.querySelector('.big-picture');
@@ -5,6 +10,9 @@ const loadingButton = bigPicture.querySelector('.comments-loader');
 const commentsCountItem = bigPicture.querySelector('.social__comment-count');
 const pictureComments = bigPicture.querySelector('.social__comments');
 const commentChild = pictureComments.children[0];
+
+const declineByNumber = (number, nominative, genitiveSingular, genitivePlural) => {const lastDigit = number % MIN_DECIMAL_NUMBER;if (lastDigit === 0 || lastDigit >= MIN_PLURAL_DIGIT && lastDigit < MIN_DECIMAL_NUMBER
+        || number % MIN_HUNDREDTH_NUMBER > MIN_DECIMAL_NUMBER && number % MIN_HUNDREDTH_NUMBER <= MAX_DECIMAL_NUMBER) {return genitivePlural;}else if (lastDigit > 1 && lastDigit < MIN_PLURAL_DIGIT) { return genitiveSingular;}return nominative;};
 
 let maxCommentsMultiplyer = 1;
 
@@ -40,7 +48,8 @@ const addNewComments = () => {
     loadingButton.classList.add('hidden');
   }
 
-  commentsCountItem.innerHTML = `${addedCommentsCount} из <span class="comments-count">${commentsOverallCount}</span> комментариев`;
+  commentsCountItem.innerHTML = `${addedCommentsCount} из <span class="comments-count">${commentsOverallCount}</span>
+  ${declineByNumber(commentsOverallCount, 'комментарий', 'комментария', 'комментариев')}`;
 };
 
 const setComments = (comments) => {
@@ -56,4 +65,4 @@ loadingButton.addEventListener('click', () => {
   addNewComments(maxCommentsMultiplyer++);
 });
 
-export { setComments };
+export { setComments, bigPicture };
