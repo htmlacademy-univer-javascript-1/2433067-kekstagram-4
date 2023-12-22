@@ -1,8 +1,10 @@
-import {CreatedPhotos} from './data.js';
-import {renderPictures} from './pictures.js';
+import {setData} from './api.js';
 import {uploadForm} from './form.js';
+import {renderPictures} from './pictures.js';
 
-const picturesArray = CreatedPhotos();
-renderPictures(picturesArray);
+setData(renderPictures,
+  () => {showUnloadingErrorMessage('Не удалось загрузить данные из сервера :(');
+  },
+  'GET');
 
 uploadForm();

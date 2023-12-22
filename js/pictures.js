@@ -1,4 +1,4 @@
-import { addPictureEvent } from './big-picture.js';
+import {addBigPicture} from './big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
@@ -11,7 +11,11 @@ const renderPicture = (picture) => {
   newElement.querySelector('.picture__comments').textContent = picture.comments.length;
   newElement.querySelector('.picture__likes').textContent = picture.likes;
 
-  addPictureEvent(newElement, picture);
+  newElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    addBigPicture(picture);
+  });
 
   return newElement;
 };
@@ -25,3 +29,4 @@ const renderPictures = (images) => {
 };
 
 export {renderPictures};
+
