@@ -11,8 +11,22 @@ const commentsCountItem = bigPicture.querySelector('.social__comment-count');
 const pictureComments = bigPicture.querySelector('.social__comments');
 const commentChild = pictureComments.children[0];
 
-const declineByNumber = (number, nominative, genitiveSingular, genitivePlural) => {const lastDigit = number % MIN_DECIMAL_NUMBER;if (lastDigit === 0 || lastDigit >= MIN_PLURAL_DIGIT && lastDigit < MIN_DECIMAL_NUMBER
-        || number % MIN_HUNDREDTH_NUMBER > MIN_DECIMAL_NUMBER && number % MIN_HUNDREDTH_NUMBER <= MAX_DECIMAL_NUMBER) {return genitivePlural;}else if (lastDigit > 1 && lastDigit < MIN_PLURAL_DIGIT) { return genitiveSingular;}return nominative;};
+const declineByNumber = (number, nominative, genitiveSingular, genitivePlural) => {
+  const lastDigit = number % MIN_DECIMAL_NUMBER;
+  const lastTwoDigits = number % MIN_HUNDREDTH_NUMBER;
+
+  if (
+    lastDigit === 0 ||
+    (lastDigit >= MIN_PLURAL_DIGIT && lastDigit <= 9) ||
+    (lastTwoDigits >= MIN_HUNDREDTH_NUMBER && lastTwoDigits <= MAX_DECIMAL_NUMBER)
+  ) {
+    return genitivePlural;
+  } else if (lastDigit === 1) {
+    return genitiveSingular;
+  }
+
+  return nominative;
+};
 
 let maxCommentsMultiplyer = 1;
 
@@ -60,6 +74,7 @@ const setComments = (comments) => {
   maxCommentsMultiplyer = 1;
   addNewComments();
 };
+
 
 loadingButton.addEventListener('click', () => {
   addNewComments(maxCommentsMultiplyer++);

@@ -3,27 +3,27 @@ import {pressEscape} from './util.js';
 
 const closeButton = bigPicture.querySelector('#picture-cancel');
 
-const clearBigPictureMenu = () => {
+const bigMenu = () => {
   bigPicture.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
 
-const onEscapeKeyDown = (evt) => {
-  if(pressEscape(evt)){
-    clearBigPictureMenu();
 
-    document.removeEventListener('keydown', onEscapeKeyDown);
+const onDocumentKeydown = (evt) => {
+  if(pressEscape(evt)){
+    bigMenu();
+
+    document.removeEventListener('keydown', onDocumentKeydown);
   }
 };
 
-closeButton.addEventListener('click', () => {
-  clearBigPictureMenu();
+closeButton.addEventListener('click', () => {bigMenu();
 
-  document.removeEventListener('keydown', onEscapeKeyDown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 });
 
 const addBigPicture = (data) => {
-  document.addEventListener('keydown', onEscapeKeyDown);
+  document.addEventListener('keydown', onDocumentKeydown);
 
   bigPicture.classList.remove('hidden');
 
