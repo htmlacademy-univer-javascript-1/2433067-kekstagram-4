@@ -1,7 +1,7 @@
 import { uploadHashtagInput, clearHashtagsField } from './hashtag.js';
 import { pressEscape } from './util.js';
-import { setScale } from './scaler.js';
-import { setEffects } from './effects.js';
+import { setScale } from './scale.js';
+import { setEffects } from './effect.js';
 
 const uploadingControl = document.querySelector('#upload-file');
 const uploadingOverlay = document.querySelector('.img-upload__overlay');
