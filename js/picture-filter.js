@@ -2,11 +2,11 @@ import {debounce, throttle} from './util.js';
 import {renderPictures, removePictures} from './pictures.js';
 import {pictures} from './upload-data.js';
 
-const MAX_RANDOM_FILTER_LENGTH = 10;
+const MAX_FILTER_LENGTH = 10;
 
 const filterForm = document.querySelector('.img-filters__form');
 
-const showFilters = () => {
+const returnFilters = () =>{
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
@@ -14,7 +14,7 @@ const sortByCommentsCount = (firstItem, secondItem) => secondItem.comments.lengt
 
 const filters = {
   'filter-default': () => pictures.slice(),
-  'filter-random': () => throttle(pictures.slice()).slice(0, MAX_RANDOM_FILTER_LENGTH),
+  'filter-random': () => throttle(pictures.slice()).slice(0, MAX_FILTER_LENGTH),
   'filter-discussed': () => pictures.slice().sort(sortByCommentsCount),
 };
 
@@ -34,4 +34,4 @@ const onFilterClick = debounce((evt) => {
 
 filterForm.addEventListener('click', onFilterClick);
 
-export{showFilters};
+export{returnFilters};

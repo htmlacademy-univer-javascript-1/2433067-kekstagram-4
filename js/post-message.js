@@ -1,8 +1,6 @@
 import {closeForm, onEscapeKeyDown} from './form.js';
 import {pressEscape} from './util.js';
 
-const MESSAGE_Z_POSITION = 100;
-
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const successMessage = successTemplate.cloneNode(true);
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -44,7 +42,7 @@ const onErrorClick = (evt) => {
 
 const appendMessage = (message) => {
   message.classList.add('hidden');
-  message.style.zIndex = MESSAGE_Z_POSITION;
+  message.style.zIndex = 100;
 
   document.body.appendChild(message);
 };

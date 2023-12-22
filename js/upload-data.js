@@ -1,5 +1,5 @@
 import {renderPictures} from './pictures.js';
-import {showFilters} from './filter.js';
+import {returnFilters} from './picture-filter.js';
 
 const ERROR_Z_POSITION = 100;
 const ERROR_FONT_SIZE = 20;
@@ -11,7 +11,7 @@ let pictures = [];
 const onRecieveSuccess = (data) => {
   pictures = data.slice();
   renderPictures(data);
-  showFilters();
+  returnFilters();
 };
 
 const showUnloadingErrorMessage = (errorText) => {
